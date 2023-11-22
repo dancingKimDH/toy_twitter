@@ -1,7 +1,7 @@
 import { FiImage } from 'react-icons/fi'
 import { Link } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa'
-import {AiFillHeart} from 'react-icons/ai'
+import { AiFillHeart } from 'react-icons/ai'
 import { FaRegComment } from 'react-icons/fa';
 
 export interface PostProps {
@@ -47,16 +47,17 @@ export default function HomePage() {
             <div>
                 <div className="home">
                     <div className="home__title">Home</div>
-                    <div className="home__tabs"></div>
-                    <div className="home__tab home__tab--active">For You</div>
-                    <div className="home__tab home__tab--active">Following</div>
+                    <div className="home__tabs">
+                        <div className="home__tab home__tab--active">For You</div>
+                        <div className="home__tab home__tab--active">Following</div>
+                    </div>
                 </div>
                 {/* post form */}
                 <form action="" className="post-form">
                     <textarea name="content" id="" className="post-form__textarea" required placeholder="What is happening?"></textarea>
                     <div className="post-form__submit-area">
-                        <label htmlFor="file-input" className='post-from__file'>
-                            <FiImage className='post-form__file-icon' />
+                        <label htmlFor="file-input" className='post-form__file'>
+                            <FiImage className='post-from__file-icon' />
                         </label>
                         <input type="file" name="file-input" id="" accept='image/*' onChange={handleFileUpload} className='hidden' />
                         <input type="submit" value="Tweet" className='post-form__submit-btn' />
@@ -83,8 +84,8 @@ export default function HomePage() {
                                 <button type='button' className='post__edit'>
                                     <Link to={`/posts/edit/${post?.id}`}>Edit</Link>
                                 </button>
-                                <button type='button' className='post__likes'><AiFillHeart/>{post?.likeCount || 0}</button>
-                                <button type='button' className='post__comments'><FaRegComment/> {post?.comments?.length || 0} </button>
+                                <button type='button' className='post__likes'><AiFillHeart />{post?.likeCount || 0}</button>
+                                <button type='button' className='post__comments'><FaRegComment /> {post?.comments?.length || 0} </button>
                             </div>
                         </div>
                     ))}
