@@ -1,9 +1,6 @@
-import { FiImage } from 'react-icons/fi'
 import { Link } from 'react-router-dom';
-import { FaUserCircle } from 'react-icons/fa'
-import { AiFillHeart } from 'react-icons/ai'
-import { FaRegComment } from 'react-icons/fa';
 import PostForm from 'pages/components/posts/PostForm';
+import PostBox from 'pages/components/posts/PostBox';
 
 export interface PostProps {
     id: string;
@@ -17,11 +14,33 @@ export interface PostProps {
     comments?: any;
 }
 
-
+const posts: PostProps[] = [
+    {
+        id: "1",
+        email: "sdf@sdf",
+        content: "내용",
+        createdAt: "2023",
+        uid: "134"
+    },
+    {
+        id: "2",
+        email: "sdf@sdf",
+        content: "내용",
+        createdAt: "2023",
+        uid: "1345"
+    },
+    {
+        id: "3",
+        email: "sdf@sdf",
+        content: "내용",
+        createdAt: "2023",
+        uid: "13456"
+    }
+]
 
 export default function HomePage() {
 
-
+    const handleDelete = () => { }
         ; return (
             <div>
                 <div className="home">
@@ -31,12 +50,16 @@ export default function HomePage() {
                         <div className="home__tab home__tab--active">Following</div>
                     </div>
                 </div>
-
+                
                 {/* post form */}
                 <PostForm />
 
                 {/* tweet posts */}
-                
+                <div className='post'>{posts?.map((post) => (
+                        <PostBox post = {post} key={post?.id}/>
+                    ))}
+
+                </div>
             </div>
         )
 }
