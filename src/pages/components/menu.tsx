@@ -9,9 +9,9 @@ export default function MenuList() {
 
     return <div className="footer">
         <div className="footer__grid">
-            <button type="button" onClick={() => navigate("/")}><FaHouse /></button>
-            <button type="button" onClick={() => navigate("/profile")}><CgProfile /></button>
-            <button type="button" onClick={() => navigate("/")}><IoIosLogOut /></button>
+            <button type="button" onClick={() => navigate("/")}><FaHouse /> Home</button>
+            <button type="button" onClick={() => navigate("/profile")}><CgProfile /> Profile</button>
+            <button type="button" onClick={() => navigate("/")}><IoIosLogOut /> LogOut</button>
         </div>
     </div>
 }

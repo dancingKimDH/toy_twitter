@@ -64,8 +64,7 @@ export default function HomePage() {
                     </div>
                 </form>
                 {/* tweet posts */}
-                <div className='post'>
-                    {posts?.map((post) => (
+                <div className='post'>{posts?.map((post) => (
                         <div className='post__box' key={post?.id}>
                             <Link to={`/posts/${post.id}`}>
                                 <div className='post__box-profile'>
