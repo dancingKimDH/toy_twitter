@@ -4,11 +4,14 @@ import { CgProfile } from "react-icons/cg";
 import { IoIosLogOut, IoMdLogIn } from "react-icons/io";
 import { useContext } from "react";
 import AuthContext from "./context/AuthContext";
+import { getAuth, signOut } from "firebase/auth";
+import { app } from "firebaseApp";
+import { toast } from "react-toastify";
 
 export default function MenuList() {
 
     const navigate = useNavigate();
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
 
     return <div className="footer">
@@ -19,7 +22,11 @@ export default function MenuList() {
             {user === null ?
                 <button type="button" onClick={() => navigate("/users/login")}><IoMdLogIn /> LogIn</button>
                 :
-                <button type="button" onClick={() => navigate("/")}><IoIosLogOut /> LogOut</button>
+                <button type="button" onClick={async () => {
+                    const auth = getAuth(app);
+                    await signOut(auth);
+                    toast.success("로그아웃되었습니다.")
+                }}><IoIosLogOut /> LogOut</button>
             }
         </div>
     </div>
