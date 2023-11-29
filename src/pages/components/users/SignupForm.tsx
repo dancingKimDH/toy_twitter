@@ -41,7 +41,6 @@ export default function SignupForm() {
             setPassword(value);
             if (value?.length < 8) {
                 setError("비밀번호는 8자리 이상 입력해 주세요")
-                toast.error("비밀번호 오류");
             } else {
                 setError("")
             }
