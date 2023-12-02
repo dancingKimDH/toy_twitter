@@ -71,6 +71,7 @@ export default function SignupForm() {
         await signInWithPopup(auth, provider as GoogleAuthProvider | GithubAuthProvider)
         .then((result) => {
             toast.success("로그인되었습니다")
+            navigate("/");
         })
         .catch((error) => {
             const errorMessage = error?.message;
