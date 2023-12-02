@@ -328,4 +328,28 @@ body {
     color: red;
   }
 
+  &__btn-google{
+    @extend .form__btn-submit;
+    background-color: white;
+    color: $activeBorder;
+
+    &:hover, &:focus{
+      background-color: $primaryColor;
+      color: white;
+    }
+
+  }
+
+  &__btn-github{
+    @extend .form__btn-submit;
+    background-color: grey;
+    color: $white;
+
+    &:hover, &:focus{
+      background-color: $activeBg;
+      color: white;
+    }
+
+  }
+
 }
