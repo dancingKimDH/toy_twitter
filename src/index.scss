@@ -37,6 +37,20 @@ body {
   min-height: 100vh;
 }
 
+.transparent {
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+}
+
+.sticky {
+  width: 100%;
+  position: sticky;
+  max-width: 600px;
+  margin: 0 auto;
+  top: 0;
+}
+
+
 // Footer
 
 .footer {
@@ -83,13 +97,22 @@ body {
 }
 
 .home {
+
+  &__top {
+    @extend .transparent;
+    @extend .sticky;
+  }
+
   &__title {
+    background-color: transparent;
+    width: 100%;
     padding: 16px;
     font-weight: 700;
     font-size: 20px;
   }
 
   &__tabs {
+    background-color: transparent;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -273,7 +296,8 @@ body {
     text-decoration: none;
     color: grey;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       color: $greyDark;
     }
   }
@@ -328,24 +352,26 @@ body {
     color: red;
   }
 
-  &__btn-google{
+  &__btn-google {
     @extend .form__btn-submit;
     background-color: white;
     color: $activeBorder;
 
-    &:hover, &:focus{
+    &:hover,
+    &:focus {
       background-color: $primaryColor;
       color: white;
     }
 
   }
 
-  &__btn-github{
+  &__btn-github {
     @extend .form__btn-submit;
     background-color: grey;
     color: $white;
 
-    &:hover, &:focus{
+    &:hover,
+    &:focus {
       background-color: $activeBg;
       color: white;
     }

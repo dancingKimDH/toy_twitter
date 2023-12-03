@@ -35,6 +35,27 @@ const posts: PostProps[] = [
         content: "내용",
         createdAt: "2023",
         uid: "13456"
+    },
+    {
+        id: "4",
+        email: "sdf@sdf",
+        content: "내용",
+        createdAt: "2023",
+        uid: "134"
+    },
+    {
+        id: "5",
+        email: "sdf@sdf",
+        content: "내용",
+        createdAt: "2023",
+        uid: "1345"
+    },
+    {
+        id: "6",
+        email: "sdf@sdf",
+        content: "내용",
+        createdAt: "2023",
+        uid: "13456"
     }
 ]
 
@@ -44,20 +65,22 @@ export default function HomePage() {
         ; return (
             <div>
                 <div className="home">
-                    <div className="home__title">Home</div>
-                    <div className="home__tabs">
-                        <div className="home__tab home__tab--active">For You</div>
-                        <div className="home__tab home__tab--active">Following</div>
+                    <div className="home__top">
+                        <div className="home__title">Home</div>
+                        <div className="home__tabs">
+                            <div className="home__tab home__tab--active">For You</div>
+                            <div className="home__tab home__tab--active">Following</div>
+                        </div>
                     </div>
                 </div>
-                
+
                 {/* post form */}
                 <PostForm />
 
                 {/* tweet posts */}
                 <div className='post'>{posts?.map((post) => (
-                        <PostBox post = {post} key={post?.id}/>
-                    ))}
+                    <PostBox post={post} key={post?.id} />
+                ))}
 
                 </div>
             </div>

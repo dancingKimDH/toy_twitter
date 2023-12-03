@@ -1,5 +1,6 @@
 import { initializeApp, FirebaseApp, getApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
 
 
 export let app: FirebaseApp;
@@ -16,11 +17,13 @@ const firebaseConfig = {
 // Initialize Firebase
 
 try {
-    app = getApp("app");
+  app = getApp("app");
 } catch (e) {
-    app = initializeApp(firebaseConfig, "app");
+  app = initializeApp(firebaseConfig, "app");
 }
 
 const firebase = initializeApp(firebaseConfig);
+
+export const db = getFirestore(app);
 
 export default firebase;
