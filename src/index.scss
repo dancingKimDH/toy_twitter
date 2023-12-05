@@ -188,6 +188,19 @@ body {
 .post {
   padding-bottom: 40px;
 
+  &__header{
+    button {
+      border: none;
+      padding: 16px;
+    }
+
+    &-btn{
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+  }
+
   &__no-posts{
     padding: 16px;
 
