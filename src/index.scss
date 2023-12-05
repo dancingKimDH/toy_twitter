@@ -137,6 +137,17 @@ body {
 }
 
 .post-form {
+
+  &__input{
+    font-family: $font;
+    padding: 8px;
+    border: none;
+    resize: none;
+    outline: none;
+    margin-top: 8px;
+    width: calc(100% - 32px);
+  }
+
   &__textarea {
     font-family: $font;
     min-height: 120px;
@@ -181,6 +192,9 @@ body {
     padding: 0.5rem 1rem;
     background-color: $primaryColor;
   }
+
+
+
 }
 
 // 포스트

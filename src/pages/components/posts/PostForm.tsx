@@ -9,6 +9,8 @@ import { error } from "console";
 export default function PostForm() {
     const handleFileUpload = () => { };
 
+    const [tags, setTags] = useState<string[]>(["태그1", "태그2"]);
+
     const [content, setContent] = useState<string>("");
     const { user } = useContext(AuthContext);
 
@@ -45,6 +47,16 @@ export default function PostForm() {
         <form action="" className="post-form" onSubmit={onSubmit}>
             <textarea name="content" id="" className="post-form__textarea" required placeholder="What is happening?"
                 onChange={onChange} value={content}></textarea>
+
+            <div className="post-form__hashtags">
+                <span className="post-form__hashtags-outputs">
+                    {tags?.map((tag, index) => (
+                        <span className="post-form__hashtags-tag" key={index}>#{tag}</span>
+                    ))}
+                </span>
+                <input type="text" className="post-form__input" name="hashtag" id="hastag" placeholder="해시태그 + 스페이스바 입력" />
+            </div>
+
             <div className="post-form__submit-area">
                 <label htmlFor="file-input" className='post-form__file'>
                     <FiImage className='post-from__file-icon' />
