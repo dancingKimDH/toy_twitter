@@ -7,6 +7,7 @@ import AuthContext from "./context/AuthContext";
 import { getAuth, signOut } from "firebase/auth";
 import { app } from "firebaseApp";
 import { toast } from "react-toastify";
+import { AiOutlineSearch } from "react-icons/ai";
 
 export default function MenuList() {
 
@@ -18,7 +19,7 @@ export default function MenuList() {
         <div className="footer__grid">
             <button type="button" onClick={() => navigate("/")}><FaHouse /> Home</button>
             <button type="button" onClick={() => navigate("/profile")}><CgProfile /> Profile</button>
-
+            <button type="button" onClick={() => navigate("/search")}><AiOutlineSearch /> Search</button>
             {user === null ?
                 <button type="button" onClick={() => navigate("/users/login")}><IoMdLogIn /> LogIn</button>
                 :
