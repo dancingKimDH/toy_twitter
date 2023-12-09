@@ -59,10 +59,10 @@ export default function PostForm() {
     const handleKeyUp = (e: any) => {
         if (e.keyCode === 32 && e.target.value.trim() !== '') {
             // create tag
-            if(tags?.includes(e.target.value?.trim())) {
+            if (tags?.includes(e.target.value?.trim())) {
                 toast.error("같은 태그가 있습니다");
             } else {
-                setTags((prev) =>(prev?.length > 0 ? [...prev, hashTag] : [hashTag]));
+                setTags((prev) => (prev?.length > 0 ? [...prev, hashTag] : [hashTag]));
                 setHashTag("");
             }
         }
@@ -81,7 +81,7 @@ export default function PostForm() {
                     ))}
                 </span>
                 <input type="text" className="post-form__input" name="hashtag" id="hastag" placeholder="해시태그 + 스페이스바 입력"
-                onChange={onChangeHashTag} onKeyUp={handleKeyUp} value={hashTag} />
+                    onChange={onChangeHashTag} onKeyUp={handleKeyUp} value={hashTag} />
             </div>
 
             <div className="post-form__submit-area">
