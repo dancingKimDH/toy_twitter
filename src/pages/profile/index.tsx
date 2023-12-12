@@ -38,7 +38,7 @@ export default function ProfilePage() {
             <div className="home__top">
                 <div className="home__title">Profile</div>
                 <div className="profile">
-                    <img src={user?.photoURL || PROFILE_DEFAULT_URL} alt="profile" className="profile__image" />
+                    <img src={user?.photoURL || PROFILE_DEFAULT_URL} alt="profile" className="profile__image" width={100} height={100} />
                     <button type="button" className="profile__btn" onClick={() => navigate("/profile/edit")}>프로필 수정</button>
                 </div>
 
