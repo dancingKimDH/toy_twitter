@@ -9,6 +9,8 @@ import { updateProfile } from "firebase/auth";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
+const STORAGE_DOWNLOAD_URL_STR = "https://firebasestorage.googleapis.com";
+
 export default function ProfileEdit() {
 
     const onchange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,10 +30,13 @@ export default function ProfileEdit() {
         e.preventDefault();
         try {
             // 기존 이미지 삭제 > 이미지 업로드 > 업데이트 프로필 호출
-            // if (user?.photoURL) {
-            //     const imageRef = ref(storage, user?.photoURL);
-            //     await deleteObject(imageRef).catch((error) => { console.log(error) });
-            // }
+            if (user?.photoURL && user.photoURL?.includes(STORAGE_DOWNLOAD_URL_STR)) {
+                const imageRef = ref(storage, user?.photoURL);
+                if(imageRef) {
+                    await deleteObject(imageRef).catch((error) => { console.log(error) });
+                }
+                
+            }
 
             if (imageUrl) {
                 const data = await uploadString(storageRef, imageUrl, "data_url");
