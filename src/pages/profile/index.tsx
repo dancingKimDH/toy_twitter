@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function ProfilePage() {
 
-    const [posts, setPosts] = useState<PostProps[]>([]);
+    const [myPosts, setMyPosts] = useState<PostProps[]>([]);
+    const [likePosts, setLikePosts] = useState<PostProps[]>([]);
 
     const { user } = useContext(AuthContext);
 
@@ -16,17 +17,30 @@ export default function ProfilePage() {
 
     const PROFILE_DEFAULT_URL = "/logo192.png";
 
+    type TabType = 'my' | 'like';
+
+    const [activeTab, setActiveTab] = useState<TabType>('my');
+
     useEffect(() => {
         if (user) {
             let postsRef = collection(db, "posts");
-            let postsQuery = query(postsRef, where("uid", "==", user.uid), orderBy("createdAt", "desc"));
+            let myPostsQuery = query(postsRef, where("uid", "==", user.uid), orderBy("createdAt", "desc"));
+            let likePostsQuery = query(postsRef, where("likes", "array-contains", user.uid), orderBy("createdAt", "desc"));
 
-            onSnapshot(postsQuery, (snapshot) => {
+            onSnapshot(myPostsQuery, (snapshot) => {
                 let dataObj = snapshot.docs.map((doc) => ({
                     ...doc.data(),
                     id: doc?.id
                 }))
-                setPosts(dataObj as PostProps[]);
+                setMyPosts(dataObj as PostProps[]);
+            })
+
+            onSnapshot(likePostsQuery, (snapshot) => {
+                let dataObj = snapshot.docs.map((doc) => ({
+                    ...doc.data(),
+                    id: doc?.id
+                }))
+                setLikePosts(dataObj as PostProps[]);
             })
         }
     })
@@ -49,18 +63,32 @@ export default function ProfilePage() {
                 </div>
 
                 <div className="home__tabs">
-                    <div className="home__tab home__tab--active">For You</div>
-                    <div className="home__tab home__tab--active">Likes</div>
+                    <div className={`home__tab ${activeTab === "my" && "home__tab-active"}`} onClick={() => {setActiveTab('my')}}>For You</div>
+                    <div className={`home__tab ${activeTab === "like" && "home__tab-active"}`} onClick={() => {setActiveTab('like')}}>Likes</div>
                 </div>
 
-                <div className="post">
-                    {posts?.length > 0 ? (posts?.map((post) => <PostBox post={post} key={post.id} />)) :
-                        <div className='post__no-posts'>
-                            <div className='post__text'>
-                                게시글이 없습니다.
-                            </div>
-                        </div>}
-                </div>
+
+
+                {activeTab === 'my' && (
+                    <div className="post">
+                        {myPosts?.length > 0 ? (myPosts?.map((post) => <PostBox post={post} key={post.id} />)) :
+                            <div className='post__no-posts'>
+                                <div className='post__text'>
+                                    게시글이 없습니다.
+                                </div>
+                            </div>}
+                    </div>
+                )}
+                {activeTab === 'like' && (
+                    <div className="post">
+                        {likePosts?.length > 0 ? (likePosts?.map((post) => <PostBox post={post} key={post.id} />)) :
+                            <div className='post__no-posts'>
+                                <div className='post__text'>
+                                    게시글이 없습니다.
+                                </div>
+                            </div>}
+                    </div>
+                )}
 
             </div>
         </div>

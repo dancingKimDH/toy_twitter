@@ -87,6 +87,10 @@ body {
       padding: 16px 0;
       backdrop-filter: blur(10px);
       cursor: pointer;
+
+      &:disabled {
+        opacity: 0.5;
+      }
     }
   }
 }
@@ -163,10 +167,6 @@ body {
 }
 
 .post-form {
-
-  &__attachment {
-
-  }
 
   &__profile {
     padding: 16px;

@@ -1,13 +1,13 @@
 import { PostProps } from "pages/home";
-import { AiFillHeart } from "react-icons/ai"
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
 import { FaRegComment, FaUserCircle } from "react-icons/fa"
 import { Link, Navigate, useNavigate } from "react-router-dom"
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
-import { deleteDoc, doc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "firebaseApp";
 import { toast } from "react-toastify";
-import {getStorage, ref, deleteObject} from "firebase/storage";
+import { getStorage, ref, deleteObject } from "firebase/storage";
 import { storage } from "firebaseApp";
 
 interface PostBoxProps {
@@ -18,14 +18,32 @@ export default function PostBox({ post }: PostBoxProps) {
 
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
+
+    const toggleLike = async () => {
+        const postRef = doc(db, "posts", post.id);
+        if (user?.uid && post?.likes?.includes(user?.uid)) {
+            // like > cancel likev
+            await updateDoc(postRef, {
+                likes: arrayRemove(user?.uid),
+                likeCount: post?.likeCount ? post?.likeCount - 1 : 0,
+            })
+        } else {
+            // no like > like
+            await updateDoc(postRef, {
+                likes: arrayUnion(user?.uid),
+                likeCount: post?.likeCount ? post?.likeCount + 1 : 1,
+            })
+        }
+    }
+
     const handleDelete = async () => {
         const confirm = window.confirm("해당 게시글을 삭제하시겠습니까?");
 
-        if(confirm){
+        if (confirm) {
 
             const imageRef = ref(storage, post?.imageUrl);
 
-            if(post?.imageUrl) {
+            if (post?.imageUrl) {
                 deleteObject(imageRef).catch((error) => {
                     console.log(error);
                 })
@@ -35,7 +53,7 @@ export default function PostBox({ post }: PostBoxProps) {
             toast.success("게시글을 삭제하였습니다");
             navigate("/");
         }
-     }
+    }
 
     return (
 
@@ -63,7 +81,7 @@ export default function PostBox({ post }: PostBoxProps) {
                     </div>
                 </div>
             </Link>
-            
+
             <div className='post__box-footer'>
                 {user?.uid === post?.uid && (
                     <>
@@ -71,7 +89,10 @@ export default function PostBox({ post }: PostBoxProps) {
                         <button type='button' className='post__edit'>
                             <Link to={`/posts/edit/${post?.id}`}>Edit</Link>
                         </button>
-                        <button type='button' className='post__likes'><AiFillHeart />{post?.likeCount || 0}</button>
+
+                        <button type='button' className='post__likes' onClick={toggleLike}>
+                            {user && post?.likes?.includes(user.uid) ? (<AiFillHeart />) : (<AiOutlineHeart />)}
+                            {post?.likeCount || 0}</button>
                         <button type='button' className='post__comments'><FaRegComment /> {post?.comments?.length || 0} </button>
                     </>
                 )}
