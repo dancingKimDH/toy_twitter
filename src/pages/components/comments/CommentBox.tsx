@@ -5,6 +5,7 @@ import AuthContext from "../context/AuthContext";
 import { arrayRemove, doc, updateDoc } from "firebase/firestore";
 import { db } from "firebaseApp";
 import { toast } from "react-toastify";
+import styles from "./Comments.module.scss"
 
 export interface CommentProps {
     comment: string;
@@ -40,21 +41,21 @@ export default function CommentBox({ data, post }: CommentBoxProps) {
      }
 
     return (
-        <div key={data?.createdAt} className="comment">
-            <div className="comment__border-box">
-                <div className="comment__img-box">
-                    <div className="comment__flex-box">
+        <div key={data?.createdAt} className={styles.comment}>
+            <div className={styles.comment__borderBox}>
+                <div className={styles.comment__imgBox}>
+                    <div className={styles.comment__flexBox}>
                         <img src={`/logo192.png`} alt="profile" />
-                        <div className="comment__email">
+                        <div className={styles.comment__email}>
                             {data?.email}
                         </div>
-                        <div className="comment__createdAt">
+                        <div className={styles.comment__createdAt}>
                             {data?.createdAt}
                         </div>
                     </div>
-                    <div className="comment__content">{data?.comment}</div>
+                    <div className={styles.comment__content}>{data?.comment}</div>
                 </div>
-                <div className="comment__submit-div">
+                <div className={styles.comment__submitDiv}>
                     {data?.uid === user?.uid && (
                         <button type="button" className="comment__delete-btn" onClick={handleDeleteComment}>삭제</button>
                     )}

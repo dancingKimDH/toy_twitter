@@ -3,7 +3,7 @@ import PostBox from "pages/components/posts/PostBox";
 import { PostProps } from "pages/home"
 import { useCallback, useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "firebaseApp";
 import { IoIosArrowBack } from "react-icons/io";
 import PostHeader from "pages/components/posts/Header";
@@ -20,8 +20,9 @@ export default function PostDetail() {
     const getPost = useCallback(async () => {
         if (params?.id) {
             const docRef = doc(db, "posts", params.id);
-            const docSnap = await getDoc(docRef);
-            setPost({ ...docSnap?.data() as PostProps, id: docSnap?.id })
+            onSnapshot(docRef, (doc) => {
+                setPost({ ...(doc?.data() as PostProps), id: doc.id})
+            })
         }
     }, [params.id])
 
