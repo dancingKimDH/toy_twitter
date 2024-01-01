@@ -45,7 +45,7 @@ export default function FollowingBox({ post }: FollowingProps) {
                 // 내가 follow collection 생성 / 업데이트
 
                 const followingRef = doc(db, "following", user?.uid);
-                await setDoc(followingRef, { id: post?.uid }, { merge: true })
+                await setDoc(followingRef, {users: arrayUnion({ id: post?.uid })}, { merge: true })
 
                 // follow 당하는 사람이 collection ...
 
@@ -62,14 +62,14 @@ export default function FollowingBox({ post }: FollowingProps) {
 
     const getFollowers = useCallback(async () => {
         if (post?.uid) {
-            const ref = doc(db, "followers", post?.uid)
+            const ref = doc(db, "follower", post?.uid)
             onSnapshot(ref, (doc) => {
                 setPostFollowers([]);
                 doc?.data()?.users?.map
                     ((user: UserProps) => setPostFollowers((prev: UserProps[]) => (prev ? [...prev, user?.id] : [])))
             })
         }
-    }, []);
+    }, [post.uid]);
 
     useEffect(() => {
         if (post.uid) getFollowers();
