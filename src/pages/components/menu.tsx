@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { FaHouse } from "react-icons/fa6";
 import { CgProfile } from "react-icons/cg";
-import { IoIosLogOut, IoMdLogIn } from "react-icons/io";
+import { IoIosLogOut, IoMdLogIn, IoMdNotifications } from "react-icons/io";
 import { useContext } from "react";
 import AuthContext from "./context/AuthContext";
 import { getAuth, signOut } from "firebase/auth";
@@ -20,6 +20,7 @@ export default function MenuList() {
             <button type="button" onClick={() => navigate("/")}><FaHouse /> Home</button>
             <button type="button" onClick={() => navigate("/profile")}><CgProfile /> Profile</button>
             <button type="button" onClick={() => navigate("/search")}><AiOutlineSearch /> Search</button>
+            <button type="button" onClick={() => navigate("/notifications")}><IoMdNotifications/> Notification</button>
             {user === null ?
                 <button type="button" onClick={() => navigate("/users/login")}><IoMdLogIn /> LogIn</button>
                 :

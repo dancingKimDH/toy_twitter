@@ -1,7 +1,7 @@
 import { PostProps } from "pages/home"
 import AuthContext from "../context/AuthContext"
 import { useCallback, useContext, useEffect, useState } from "react";
-import { arrayRemove, arrayUnion, doc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
+import { addDoc, arrayRemove, arrayUnion, collection, doc, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "firebaseApp";
 import { toast } from "react-toastify";
 
@@ -51,6 +51,19 @@ export default function FollowingBox({ post }: FollowingProps) {
 
                 const followerRef = doc(db, "follower", post?.uid);
                 await setDoc(followerRef, { users: arrayUnion({ id: user?.uid }) }, { merge: true })
+
+                // send out notification
+                await addDoc(collection(db, "notifications"), {
+                    createdAt: new Date()?.toLocaleDateString("ko", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit"
+                    }),
+                    content: `${user?.email || user?.displayName} 님이 팔로우를 했습니다`,
+                    url: "#",
+                    isRead:false,
+                    uid: post?.uid,
+                })
 
                 toast.success("팔로우를 했습니다");
             }
