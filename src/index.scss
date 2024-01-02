@@ -173,7 +173,7 @@ body {
 
   &__profile {
     padding: 16px;
-    
+
     .post-form__input {
       border-bottom: 1px solid grey;
       padding: 8px 2px;
@@ -560,6 +560,11 @@ body {
   justify-content: space-between;
   align-items: center;
 
+  &__flex {
+    display: flex;
+    gap: 20px;
+  }
+
   &__image{
     border-radius: 50%;
     width: 100px;
@@ -569,6 +574,16 @@ body {
   &__btn {
     @extend .button;
     background-color: $primaryColor;
+
+    &-language {
+      background-color: grey;
+      @extend .button;
+
+      &:hover, &:focus {
+        background-color: $greyDark;
+      }
+
+    }
 
     &:hover, &:focus {
       background-color: $activeBorder;

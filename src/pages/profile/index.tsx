@@ -1,3 +1,4 @@
+import { languageState } from "atom";
 import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { db } from "firebaseApp";
 import AuthContext from "pages/components/context/AuthContext";
@@ -5,6 +6,8 @@ import PostBox from "pages/components/posts/PostBox";
 import { PostProps } from "pages/home";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { useRecoilState } from "recoil";
 
 export default function ProfilePage() {
 
@@ -20,6 +23,13 @@ export default function ProfilePage() {
     type TabType = 'my' | 'like';
 
     const [activeTab, setActiveTab] = useState<TabType>('my');
+
+    const [language, setLanguage] = useRecoilState(languageState)
+
+    const onClickLanguage = () => {
+        setLanguage(language === "ko" ? "en" : "ko");
+        localStorage.setItem("language", language === "ko" ? "en" : "ko");
+    }
 
     useEffect(() => {
         if (user) {
@@ -53,7 +63,12 @@ export default function ProfilePage() {
                 <div className="home__title">Profile</div>
                 <div className="profile">
                     <img src={user?.photoURL || PROFILE_DEFAULT_URL} alt="profile" className="profile__image" width={100} height={100} />
-                    <button type="button" className="profile__btn" onClick={() => navigate("/profile/edit")}>프로필 수정</button>
+                    <div className="profile__flex">
+                        <button type="button" className="profile__btn" onClick={() => navigate("/profile/edit")}>프로필 수정</button>
+                        <button type="button" className="profile__btn-language" onClick={onClickLanguage}>
+                            {language === "ko" ? "한국어" : "English"}
+                        </button>
+                    </div>
                 </div>
 
                 <div className="profile__text">
@@ -63,8 +78,8 @@ export default function ProfilePage() {
                 </div>
 
                 <div className="home__tabs">
-                    <div className={`home__tab ${activeTab === "my" && "home__tab-active"}`} onClick={() => {setActiveTab('my')}}>For You</div>
-                    <div className={`home__tab ${activeTab === "like" && "home__tab-active"}`} onClick={() => {setActiveTab('like')}}>Likes</div>
+                    <div className={`home__tab ${activeTab === "my" && "home__tab-active"}`} onClick={() => { setActiveTab('my') }}>For You</div>
+                    <div className={`home__tab ${activeTab === "like" && "home__tab-active"}`} onClick={() => { setActiveTab('like') }}>Likes</div>
                 </div>
 
 
