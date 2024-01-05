@@ -1,0 +1,44 @@
+$background: #14171A;
+$backgroundLight: #263340;
+$activeBg: #657786;
+$white: #ffffff;
+$border: #708090;
+$primaryColor: #60a5fa;
+$activeBorder: #3b82f6;
+$danger: red;
+$dangerHover: rgba(255, 0, 0, 0.372);
+$greyText: rgb(128, 128, 128);
+$grey: grey;
+$greyDark: rgba(128, 128, 128, 0.427);
+
+// 
+
+$mobile: 360px;
+$tablet: 600px;
+$desktop: 1024px;
+
+// media query mixin
+
+@mixin xsMobile {
+    @media (max-width: #{$mobile - 1px}){
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media (min-width: $mobile) and (max-width: #{$tablet - 1px}) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: $tablet) and (max-width: #{$desktop - 1px}) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $desktop) {
+        @content;
+    }
+}

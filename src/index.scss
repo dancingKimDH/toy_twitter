@@ -1,15 +1,4 @@
-$background: #14171A;
-$backgroundLight: #263340;
-$activeBg: #657786;
-$white: #ffffff;
-$border: #708090;
-$primaryColor: #60a5fa;
-$activeBorder: #3b82f6;
-$danger: red;
-$dangerHover: rgba(255, 0, 0, 0.372);
-$greyText: rgb(128, 128, 128);
-$grey: grey;
-$greyDark: rgba(128, 128, 128, 0.427);
+@import "./utils.scss";
 
 
 $font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -76,6 +65,10 @@ body {
     grid-template-columns: repeat(5, minmax(0, 1fr));
     background-color: transparent;
 
+    &-text {
+      background-color: transparent;
+    }
+
     button {
       border: none;
       display: flex;
@@ -95,6 +88,47 @@ body {
         opacity: 0.5;
       }
     }
+  }
+}
+
+@include xsMobile {
+  .footer {
+    display: none;
+  }
+  .layout {
+    border: none;
+  }
+}
+
+@include mobile {
+  .footer {
+    &__grid-text {
+      display: none;
+
+      button {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .layout {
+    border: none;
+  }
+}
+
+@include tablet {
+  .footer {
+    &__grid-text {
+      display: none;
+
+      button {
+        font-size: 24px;
+      }
+    }
+  }
+
+  .layout {
+    border: none;
   }
 }
 
